@@ -8,9 +8,12 @@ authors = [
 ]
 requires-python = ">=3.12.9"
 dependencies = [
+    "db-dtypes>=1.9.0",
     "google-cloud-bigquery>=3.47.0",
+    "google-cloud-bigquery-storage>=2.43.0",
     "joblib>=1.6.0",
     "pandas<3",
+    "pyarrow>=26.0.1",
     "scikit-learn>=1.9.1",
 ]
 
