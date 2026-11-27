@@ -1,9 +1,13 @@
 """
 FastAPI application for serving the taxifare model.
 """
+import pandas as pd
 from fastapi import FastAPI
 
+from taxifare.predict import load_model, predict
+
 app = FastAPI()
+model = load_model()
 
 
 @app.get("/")
@@ -21,5 +25,16 @@ def get_prediction(
     dropoff_latitude: float,
     passenger_count: int,
 ):
-    """Dummy prediction endpoint: returns the number of passengers times 2.5."""
-    return {"fare": passenger_count * 2.5}
+    """Prediction endpoint: returns the fare predicted by the trained pipeline."""
+    data = pd.DataFrame(
+        {
+            "pickup_datetime": [pickup_datetime],
+            "pickup_longitude": [pickup_longitude],
+            "pickup_latitude": [pickup_latitude],
+            "dropoff_longitude": [dropoff_longitude],
+            "dropoff_latitude": [dropoff_latitude],
+            "passenger_count": [passenger_count],
+        }
+    )
+    prediction = predict(model, data)
+    return {"fare": float(prediction[0])}

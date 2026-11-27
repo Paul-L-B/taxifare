@@ -5,7 +5,8 @@ import joblib
 
 MODEL_PATH = (
     Path(__file__).resolve().parents[2]
-    / "modelslinreg_pipeline.joblib"
+    / "models"
+    / "linreg_pipeline.joblib"
 )
 
 
